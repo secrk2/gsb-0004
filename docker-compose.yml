@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./backend
+    container_name: jiaowutong-backend
+    ports:
+      - "7104:7104"
+    volumes:
+      - jiaowutong-data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: jiaowutong-frontend
+    ports:
+      - "8104:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  jiaowutong-data:

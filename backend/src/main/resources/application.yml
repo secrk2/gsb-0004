@@ -1,0 +1,45 @@
+server:
+  port: 7104
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: jiaowutong
+  datasource:
+    url: jdbc:h2:file:./data/jiaowutong;AUTO_SERVER=TRUE;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+  h2:
+    console:
+      enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+
+app:
+  location:
+    # 相邻定位点小于该距离(米)视为位置未变更，断网恢复后合并
+    merge-distance-meters: 8
+    # 在线实时上报允许的定位时间戳偏差(秒)，超出判定为旧位置作弊
+    fresh-tolerance-seconds: 300
+
+logging:
+  level:
+    cn.gov.sfj.jiaowutong: INFO
